@@ -28,10 +28,12 @@ const Auth = () => {
     const validatelogin = async () => {
         if (!email.length) {
             toast.error("email is required");
+            // navigate("/profile");
             return false;
         }
         if (!password.length) {
             toast.error("password is required");
+            // navigate("/profile");
             return false;
         }
 
@@ -55,26 +57,31 @@ const Auth = () => {
     };
 
     const login = async () => {
-        if (validatelogin()) {
-
-            const res = await apiclient.post(LOGIN_ROUTE, { email, password }, { withCredentials: true });
-
-            if (res.data && res.data.user && res.data.user.id) {
-                // setToken(res.data.token);
-                // localStorage.setItem('token', res.data.token);
-                console.log(res.data.user);
-                setuserInfo(res.data.user)
-                if (res.data.user.profileSetup) {
-                    navigate("/chat");
+        if (await validatelogin()) {  // Wait for validation to complete
+            try {
+                const res = await apiclient.post(LOGIN_ROUTE, { email, password }, { withCredentials: true });
+                
+                if (res.data && res.data.user && res.data.user.id) {
+                    setuserInfo(res.data.user);
+                    if (res.data.user.profileSetup) {
+                        navigate("/chat");
+                    } else {
+                        navigate("/profile");
+                    }
                 }
-                else {
-                    navigate("/profile");
+            } catch (error) {
+                // If there is an error, show a toast with a message from the response or a default one
+                if (error.response && error.response.status === 400) {
+                    toast.error("Invalid email or password. Please try again.");
+                } else if (error.response && error.response.status === 404) {
+                    toast.error("User not found. Please register.");
+                } else {
+                    toast.error("Something went wrong. Please try again later.");
                 }
             }
-            console.log({ res });
-
         }
     };
+    
 
     const signup = async () => {
 

@@ -34,7 +34,7 @@ const Messagebar = () => {
     }
 
     const handleSendMessage = async () => {
-        console.log("pahuch rhe ho bhaisahab")
+        // console.log("pahuch rhe ho bhaisahab")
         if(selectedChatType === "contact"){
             socket.emit("sendMessage",{
                 sender:userInfo.id,

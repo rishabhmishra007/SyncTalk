@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 export const verifytoken = (req,res,next)=>{
-    console.log(req.cookies);
+    // console.log(req.cookies);
     const token = req.cookies.jwt;
-    console.log({token});
+    // console.log({token});
     if(!token){
         return res.status(401).send("you are not authorized person");
     }

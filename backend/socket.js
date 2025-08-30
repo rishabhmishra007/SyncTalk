@@ -18,7 +18,7 @@ const setupSocket = (server) => {
 
 
     const disconnect = (socket) => {
-        console.log(`client disconnect ${socket.id}`);
+        // console.log(`client disconnect ${socket.id}`);
         for (const [userId, socketId] of userSocketMap.entries()) {
             if (socketId === socket.id) {
                 userSocketMap.delete(userId);
@@ -34,7 +34,7 @@ const setupSocket = (server) => {
         const recipientSocketid = userSocketMap.get(message.recipient);
 
         const createMessage = await Message.create(message);
-        console.log("hello");
+        // console.log("hello");
 
 
         const msgData = await Message.findById(createMessage._id)
@@ -93,7 +93,7 @@ const setupSocket = (server) => {
         const userId = socket.handshake.query.userId;
         if (userId) {
             userSocketMap.set(userId, socket.id);
-            console.log(`User connected ${userId} connected with socket ID ${socket.id}`)
+            // console.log(`User connected ${userId} connected with socket ID ${socket.id}`)
         } else {
             console.log("user ID not provided");
 

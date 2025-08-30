@@ -34,7 +34,7 @@ export const SocketProvider = ({children})=>{
                 (selectedChatData._id === message.sender._id || selectedChatData._id === message.recipient._id))
                 {
                     
-                    console.log("message",message);
+                    // console.log("message",message);
                     addMsg(message);
                     
                 }else{
@@ -44,14 +44,14 @@ export const SocketProvider = ({children})=>{
             };
 
             const handleRecieveChannelMessage = (message)=>{
-                console.log("hhhhhhhhhhhhhh");
+                // console.log("hhhhhhhhhhhhhh");
                 
                 const { selectedChatData,selectedChatType,addMsg } = useAppStore.getState();
                 if(selectedChatType !== undefined && 
                 selectedChatData._id === message.channelId )
                 {
                     
-                    console.log("message",message);
+                    // console.log("message",message);
                     addMsg(message);
                     
                 }
